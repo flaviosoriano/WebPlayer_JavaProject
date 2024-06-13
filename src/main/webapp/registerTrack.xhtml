@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Página de Teste Simples</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+</h:head>
+
+<h:body>
+	<div class="container">
+		<h:form>
+		
+			<h:link class="top-right-link" value="Voltar ao início"
+				outcome="index?faces-redirect=true" />
+				
+			<h1 class="title">Cadastro</h1>
+			<p>Faça aqui seu cadastro de Músicas</p>
+
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nome: " for="title" />
+				<h:panelGroup>
+					<p:inputText id="title" value="#{trackBean.newTrack.title}"
+						required="true" />
+
+					<p:message for="title" />
+				</h:panelGroup>
+
+				<p:outputLabel value="Gênero: " for="genre" />
+				<h:panelGroup>
+					<p:inputText id="genre" value="#{trackBean.newTrack.genre}"
+						required="true" />
+
+					<p:message for="genre" />
+				</h:panelGroup>
+
+				<p:outputLabel value="Album: " for="albumn" />
+				<h:panelGroup>
+					<p:selectOneMenu id="albumn" value="#{trackBean.newTrack.albumn}"
+						converter="albumnConverter">
+						<f:selectItems value="#{albumnBean.albumns}" var="albumn"
+							itemValue="#{albumn}" itemLabel="#{albumn.title}" required="true" />
+					</p:selectOneMenu>
+					<p:message for="albumn" />
+				</h:panelGroup>
+				<h:commandButton value="Adicionar Faixa"
+					action="#{trackBean.addTrack}" />
+			</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+</html>

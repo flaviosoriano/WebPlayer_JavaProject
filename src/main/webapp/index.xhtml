@@ -9,17 +9,82 @@
 </h:head>
 
 <h:body>
-	<h:form>
-	    <div class="container">
-	        <h1 class="title">Reprodutor de Músicas</h1>
-	        <p>Bem-vindo ao reprodutor de músicas web. Selecione uma das opções abaixo:</p>
-	        <p:menu>
-	        	<p:menuitem value="Página cadastro" action="register"/>
-	        	<p:menuitem value="Página Listagem"/>
-	        	<p:menuitem value="Página Discografia"/>
-	        </p:menu>
-	    </div>
-	</h:form>
+	<div class="container">
+		<h:form>
+			<h1 class="title">Reprodutor de Músicas</h1>
+			<p>Bem-vindo ao reprodutor de músicas web. Selecione uma das
+				opções abaixo:</p>
+			<p:menu toggleable="true">
+				<p:submenu label="Cadastro">
+					<p:menuitem value="Cadastro Artista"
+						action="registerArtist?faces-redirect=true" />
+					<p:menuitem value="Cadastro Album"
+						action="registerAlbumn?faces-redirect=true" />
+					<p:menuitem value="Cadastro Música"
+						action="registerTrack?faces-redirect=true" />
+				</p:submenu>
+				<p:menuitem value="Página Listagem"
+					action="list?faces-redirect=true" />
+				<p:menuitem value="Player" />
+			</p:menu>
+
+			<h2>Artists</h2>
+			<p:dataTable value="#{artistBean.artists}" var="artist">
+				<p:column headerText="Id">
+					<h:outputText value="#{artist.id}" />
+				</p:column>
+
+				<p:column headerText="Name">
+					<h:outputText value="#{artist.name}" />
+				</p:column>
+				<p:column headerText="Ações">
+					<h:commandButton value="Excluir"
+						action="#{artistBean.deleteArtist(artist.id)}"
+						onclick="return confirm('Tem certeza que deseja excluir este artista?');" />
+				</p:column>
+			</p:dataTable>
+
+			<h2>Albuns</h2>
+			<p:dataTable value="#{albumnBean.albumns}" var="albumn">
+				<p:column headerText="Id">
+					<h:outputText value="#{albumn.id}" />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{albumn.title}" />
+				</p:column>
+
+				<p:column headerText="Ações">
+					<h:commandButton value="Excluir"
+						action="#{albumnBean.deleteAlbumn(albumn.id)}"
+						onclick="return confirm('Tem certeza que deseja excluir este álbum?');" />
+				</p:column>
+			</p:dataTable>
+
+			<h2>Tracks</h2>
+			<p:dataTable value="#{trackBean.tracks}" var="track">
+				<p:column headerText="Id">
+					<h:outputText value="#{track.id}" />
+				</p:column>
+
+				<p:column headerText="Name">
+					<h:outputText value="#{track.title}" />
+				</p:column>
+				<p:column headerText="Genre">
+					<h:outputText value="#{track.genre}" />
+				</p:column>
+				<p:column headerText="Albumn">
+					<h:outputText value="#{track.albumn}" />
+				</p:column>
+				<p:column headerText="Ações">
+					<h:commandButton value="Excluir"
+						action="#{trackBean.deleteTrack(track.id)}"
+						onclick="return confirm('Tem certeza que deseja excluir esta faixa?');" />
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</div>
 </h:body>
 
 </html>

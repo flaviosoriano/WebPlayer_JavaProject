@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Página de Teste Simples</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+</h:head>
+
+<h:body>
+	<div class="container">
+		<h:form>
+			<h1 class="title">Cadastro</h1>
+			<p>Faça aqui seu cadastro de Artista</p>
+
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nome: " for="name" />
+				<h:panelGroup>
+					<p:inputText id="name" value="#{artistBean.newArtist.name}"
+						required="true" />
+
+					<p:message for="name" />
+				</h:panelGroup>
+
+				<h:commandButton value="Salvar Artista" action="#{artistBean.addArtist}"/>
+			</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+
+</html>

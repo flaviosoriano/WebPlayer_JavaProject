@@ -6,6 +6,11 @@ import br.ufmg.dcc.luar.model.Track;
 
 public class MusicService {
 	
+	public int addTrack(Track newTrack) {
+		int trackId = 0;
+		return trackId;
+	}
+	
 	public List<String> listDiscografy(int artistId){
 		List<String> names = null;
 		return names;
@@ -16,16 +21,12 @@ public class MusicService {
 		return names;
 	}
 	
-	public int addTrack(Track newTrack) {
-		int trackId = 0;
-		return trackId;
+	public void updateTrack(int trackId) {
+		
 	}
 	
 	public void removeTrack(int trackId) {
 		
 	}
-	
-	public void updateTrack(int trackId) {
-		
-	}
+
 }

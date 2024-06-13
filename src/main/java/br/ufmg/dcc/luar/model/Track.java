@@ -1,16 +1,16 @@
 package br.ufmg.dcc.luar.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name="track")
 public class Track implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,6 +18,9 @@ public class Track implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@ManyToOne
+	private Albumn albumn;
 	
 	@Column
 	private String title;
@@ -27,6 +30,12 @@ public class Track implements Serializable {
 	
 	public int getId() {
 		return id;
+	}
+	public Albumn getAlbumn() {
+		return albumn;
+	}
+	public void setAlbumn(Albumn albumn) {
+		this.albumn = albumn;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -43,5 +52,29 @@ public class Track implements Serializable {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(albumn, genre, id, title);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Track other = (Track) obj;
+		return Objects.equals(albumn, other.albumn) && Objects.equals(genre, other.genre) && id == other.id
+				&& Objects.equals(title, other.title);
+	}
+	@Override
+	public String toString() {
+		return "Track [id=" + id + ", albumn=" + albumn + ", title=" + title + ", genre=" + genre + "]";
+	}
+	
+	
 	
 }

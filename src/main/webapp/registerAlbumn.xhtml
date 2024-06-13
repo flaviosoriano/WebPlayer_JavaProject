@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Página de Teste Simples</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+</h:head>
+
+<h:body>
+	<div class="container">
+		<h:form>
+			<h1 class="title">Cadastro</h1>
+			<p>Faça aqui seu cadastro de Albumn</p>
+
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nome: " for="title" />
+				<h:panelGroup>
+					<p:inputText id="title" value="#{albumnBean.newAlbumn.title}"
+						required="true" />
+
+					<p:message for="title" />
+				</h:panelGroup>
+
+				<p:outputLabel value="Url da capa: " for="coverUrl" />
+				<h:panelGroup>
+					<p:inputText id="coverUrl" value="#{albumnBean.newAlbumn.coverImageFileUrl}"
+						required="true" />
+
+					<p:message for="coverUrl" />
+				</h:panelGroup>
+
+				<h:panelGroup> 
+					<p:commandButton value="Adicionar Album" action="#{albumnBean.addAlbumn}"/>
+				</h:panelGroup>
+				
+				<h:panelGroup> 
+					<h:commandButton value="Voltar à página index" action="index?faces-redirect=true"/>
+				</h:panelGroup>
+			</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+
+</html>
