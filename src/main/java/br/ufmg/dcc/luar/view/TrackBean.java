@@ -1,6 +1,7 @@
 package br.ufmg.dcc.luar.view;
 
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +13,8 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import org.primefaces.model.UploadedFile;
+
 import br.ufmg.dcc.luar.model.Track;
 
 @Named("trackBean")
@@ -21,10 +24,9 @@ public class TrackBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private EntityManagerFactory factory;
-
 	private List<Track> tracks;
-
 	private Track newTrack = new Track();
+	private UploadedFile audioFile;
 
 	@PostConstruct
 	public void init() {
@@ -46,11 +48,20 @@ public class TrackBean implements Serializable {
 	public String voltar() {
 		return "index?faces-redirect=true";
 	}
+	
+    public UploadedFile getAudioFile() {
+        return audioFile;
+    }
+
+    public void setAudioFile(UploadedFile audioFile) {
+        this.audioFile = audioFile;
+    }
 
 	@Transactional
 	public String addTrack() {
 		EntityManager manager = factory.createEntityManager();
 		manager.getTransaction().begin();
+		newTrack.setAudioFile(audioFile.getContents());
 		manager.persist(newTrack);
 		manager.getTransaction().commit();
 		manager.close();
@@ -72,4 +83,19 @@ public class TrackBean implements Serializable {
 		init();
 		return "index?faces-redirect=true";
 	}
+	
+	@Transactional
+    public String playTrack(int id) {
+        EntityManager manager = factory.createEntityManager();
+        newTrack = manager.find(Track.class, id);
+        manager.close();
+        return "Player?faces-redirect=true";
+    }
+	
+    public String getAudioBase64() {
+        if (newTrack != null && newTrack.getAudioFile() != null) {
+            return "data:audio/mp3;base64," + Base64.getEncoder().encodeToString(newTrack.getAudioFile());
+        }
+        return null;
+    }
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view>
+	<f:metadata>
+		<f:viewParam name="trackId" value="#{playerBean.trackId}"/>
+		<f:viewAction action="#{playerBean.init}"/>
+	</f:metadata>
+	<h:head>
+		<title>Detalhes da Música</title>
+		<h:outputStylesheet library="css" name="estilos.css" />
+	</h:head>
+
+	<h:body>
+		<div class="container">
+			<h:form>
+				<h1 class="title">Detalhes da Música</h1>
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Nome: " />
+					<h:outputText value="#{playerBean.playedTrack.title}" />
+
+					<p:outputLabel value="Gênero: " />
+					<h:outputText value="#{playerBean.playedTrack.genre}" />
+
+
+				</p:panelGrid>
+
+				<p:outputLabel value="Player de Música" />
+				<audio controls="true">
+					<source src="#{request.contextPath}/MusicServlet?trackId=#{playerBean.playedTrack.id}" type="audio/mpeg" />
+					Seu navegador não suporta o elemento de áudio.
+				</audio>
+
+				<p:commandLink value="Voltar ao início"
+					action="index?faces-redirect=true" />
+			</h:form>
+		</div>
+	</h:body>
+</f:view>
+</html>
